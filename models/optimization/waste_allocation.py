@@ -30,7 +30,7 @@ def calculate_waste_diversion(daily_slaughter_head, wetland_capacity_kg):
     # Estimated 65% CH4 reduction on diverted mass
     methane_mitigated_co2e = (diverted_mass * 0.65) * 28  
     
-    return {
+    Return {
         "daily_slaughter_head": daily_slaughter_head,
         "total_organic_waste_kg": total_organic_waste,
         "safe_discharge_kg": safe_discharge,

@@ -1,45 +1,51 @@
 Python
 """
-EcoTrace-Stream AI: Bioremediation & Waste Optimization Engine
-Module: waste_allocation.py
-Description: Calculates daily organic mass diversion (blood/rumen) to 
-             prevent wetland anaerobic methane overload in abattoir corridors.
+EcoTrace-Stream AI: Predictive Hydrological Model
+Module: sentinel_ingest.py
+Description: Ingests Sentinel-2 satellite surface reflectance imagery 
+             (B03 Green, B08 NIR) to calculate Normalized Difference 
+             Water Index (NDWI) and track organic plume diffusion in wetlands.
 """
 
-Import json
+import numpy as np
 
-Def calculate_waste_diversion(daily_slaughter_head, wetland_capacity_kg):
+def calculate_ndwi(green_band: np.ndarray, nir_band: np.ndarray) -> np.ndarray:
     """
-    Estimates the organic byproduct volume and calculates the mass to divert
-    to circular upcycling hubs (fertilizer/protein conversion).
+    Calculates NDWI = (Green - NIR) / (Green + NIR)
+    Delineates open water bodies and high-moisture wetland zones.
     """
-    blood_per_head_kg = 12.5
-    rumen_per_head_kg = 25.0
+    denominator = green_band + nir_band
+    denominator[denominator == 0] = 1e-6
     
-    total_organic_waste = daily_slaughter_head * (blood_per_head_kg + rumen_per_head_kg)
+    ndwi = (green_band - nir_band) / denominator
+    return np.clip(ndwi, -1.0, 1.0)
+
+def simulate_plume_diffusion(ndwi_grid: np.ndarray, organic_load_kg: float):
+    """
+    Simulates organic waste dispersion across high-moisture pixel grids.
+    """
+    water_mask = ndwi_grid > 0.1
+    affected_pixels = np.sum(water_mask)
     
-    if total_organic_waste > wetland_capacity_kg:
-        diverted_mass = total_organic_waste - wetland_capacity_kg
-        safe_discharge = wetland_capacity_kg
-        status = "CRITICAL: Diversion Required"
-    Else:
-        diverted_mass = 0.0
-        safe_discharge = total_organic_waste
-        status = "OPTIMAL: Within Wetland Capacity"
+    if affected_pixels > 0:
+        estimated_concentration_mg_l = (organic_load_kg * 1000) / (affected_pixels * 50)
+    else:
+        estimated_concentration_mg_l = 0.0
         
-    # Estimated 65% CH4 reduction on diverted mass
-    methane_mitigated_co2e = (diverted_mass * 0.65) * 28  
-    
-    Return {
-        "daily_slaughter_head": daily_slaughter_head,
-        "total_organic_waste_kg": total_organic_waste,
-        "safe_discharge_kg": safe_discharge,
-        "diverted_to_upcycling_kg": diverted_mass,
-        "status": status,
-        "estimated_ch4_mitigated_co2e_kg": round(methane_mitigated_co2e, 2)
+    return {
+        "water_pixels_detected": int(affected_pixels),
+        "est_organic_concentration_mg_l": round(float(estimated_concentration_mg_l), 2),
+        "high_risk_zone": bool(estimated_concentration_mg_l > 50.0)
     }
 
-If __name__ == "__main__":
-    # Test simulation for Kumba Pilot Corridor baseline
-    kumba_sample_run = calculate_waste_diversion(daily_slaughter_head=150, wetland_capacity_kg=2000.0)
-    print(json.dumps(kumba_sample_run, indent=2))
+if __name__ == "__main__":
+    np.random.seed(42)
+    sample_green = np.random.uniform(0.1, 0.4, (5, 5))
+    sample_nir = np.random.uniform(0.05, 0.2, (5, 5))
+    
+    ndwi = calculate_ndwi(sample_green, sample_nir)
+    diffusion_results = simulate_plume_diffusion(ndwi, organic_load_kg=850.0)
+    
+    print("Sentinel-2 Ingestion Test Complete.")
+    print("NDWI Matrix Sample:\n", np.round(ndwi, 2))
+    print("Plume Analysis:", diffusion_results)

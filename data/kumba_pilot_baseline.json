@@ -1,0 +1,15 @@
+JSON
+{
+  "pilot_site": "Kumba Green Abattoir Corridor",
+  "country": "Cameroon",
+  "coordinates": {
+    "latitude": 4.6364,
+    "longitude": 9.4469
+  },
+  "baseline_metrics": {
+    "avg_daily_slaughter": 120,
+    "wetland_absorption_limit_kg_per_day": 2500.0,
+    "primary_pollutants": ["Blood Mass", "Rumen Content"],
+    "target_greenhouse_gas": "Methane (CH4)"
+  }
+}

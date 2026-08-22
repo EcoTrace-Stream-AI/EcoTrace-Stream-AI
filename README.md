@@ -36,7 +36,7 @@ The framework consists of two core open-source machine learning modules:
 
 ---
 
-## Repository Structure
+## Repository Structure.
 
 ```text
 EcoTrace-Stream-AI/

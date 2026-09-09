@@ -1,4 +1,4 @@
-Markdown
+
 # EcoTrace-Stream AI.
 
 > **Open-Source Wetland Bioremediation & Waste Optimization Framework for LDC Abattoir Corridors**
@@ -36,7 +36,7 @@ The framework consists of two core open-source machine learning modules:
 
 ---
 
-## Repository Structure.
+## Repository Structure
 
 ```text
 EcoTrace-Stream-AI/

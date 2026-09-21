@@ -1,0 +1,22 @@
+# EcoTrace-Stream AI Core Dependencies
+
+# Machine Learning & Numerical Computing
+tensorflow>=2.15.0
+torch>=2.2.0
+numpy>=1.26.0
+pandas>=2.2.0
+
+# Geospatial & Satellite Processing (Copernicus / Sentinel)
+geopandas>=0.14.0
+rasterio>=1.3.0
+shapely>=2.0.0
+sentinelhub>=3.10.0
+
+# API & Telemetry Dispatching
+requests>=2.31.0
+fastapi>=0.109.0
+uvicorn>=0.27.0
+
+# Environment & Testing
+python-dotenv>=1.0.0
+pytest>=8.0.0

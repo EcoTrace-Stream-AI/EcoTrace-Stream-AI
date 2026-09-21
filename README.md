@@ -20,7 +20,7 @@ EcoTrace-Stream AI operates as a decoupled software architecture focused on thre
 
 ## 🏗 System Architecture
 
-EcoTrace-Stream AI separates digital intelligence from physical infrastructure. It acts as an autonomous decision engine that routes execution instructions to external, off-site waste recovery receivers (such as bio-fertilizer units, BSFL facilities, or municipal composting hubs via API).
+EcoTrace-Stream AI separates digital intelligence from physical infrastructure. It acts as an autonomous decision engine that routes execution instructions to external, off-site waste-recovery receivers (such as bio-fertilizer units, BSFL facilities, or municipal composting hubs via API).
 
 ```text
  [1. INGESTION LAYER]       [2. AI ENGINE LAYER]       [3. DECISION LAYER]        [4. ACTION & OUTPUT LAYER]

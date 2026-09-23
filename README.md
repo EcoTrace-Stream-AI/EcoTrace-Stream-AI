@@ -1,73 +1,56 @@
 # EcoTrace-Stream AI 🌊🛰️
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Digital Public Goods](https://img.shields.io/badge/DPG-Aligned-green.svg)](#)
-[![UNFCCC-AICA](https://img.shields.io/badge/UNFCCC-AICA--Aligned-blue.svg)](#)
+[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Framework](https://img.shields.io/badge/PyTorch-2.0%2B-red.svg)](https://pytorch.org/)
+[![DPG Aligned](https://img.shields.io/badge/DPG-Standard%20Compliant-green.svg)](https://digitalpublicgoods.net/)
 
-An open-source, high-throughput hydro-spatial intelligence platform engineered for Least Developed Countries (LDCs). **EcoTrace-Stream AI** combines remote sensing satellite pipelines (Copernicus Sentinel-1/2) with localized edge sensor telemetry to predict riverine oxygen collapse, quantify fugitive methane ($\text{CH}_4$) generation, and issue automated load-shifting governance alerts.
+**EcoTrace-Stream AI** is an open-source, hardware-free environmental intelligence framework. It leverages Copernicus Sentinel-2 satellite imagery, spatial hydrology modeling, and deep learning (PyTorch/TensorFlow) to forecast surface water quality parameters—specifically **Dissolved Oxygen (DO)**, **Biochemical Oxygen Demand (BOD)**, and **Turbidity**—in tropical river basins affected by municipal and agricultural effluent.
 
----
-
-## 📌 Core System Pillars
-
-EcoTrace-Stream AI operates as a decoupled software architecture focused on three distinct pillars:
-
-1. **Freshwater Ecosystem Preservation:** Computes real-time dynamic assimilative absorption capacity ($C_{\text{max}}$) and forecasts hydro-spatial plume dispersion up to 72 hours in advance to prevent Dissolved Oxygen ($\text{DO}$) collapse and fish kills.
-2. **Methane ($\text{CH}_4$) Abatement Engine:** Tracks organic loading rates ($\text{BOD}_5$) and models anoxic sediment conversion to mathematically quantify avoided methane emissions in audit-ready carbon metrics ($\text{MT CO}_2\text{e}$).
-3. **Open-Source Environmental Governance:** Functions as a zero-cost Digital Public Good (DPG) that dispatches automated SMS alerts and REST-API webhooks to municipal health officers and environmental enforcement agencies.
+Designed specifically for low-resource environments in the Global South, EcoTrace-Stream AI eliminates the high capital costs of physical inline water monitoring networks.
 
 ---
 
-## 🏗 System Architecture
+## 🚀 Key Features
 
-EcoTrace-Stream AI separates digital intelligence from physical infrastructure. It acts as an autonomous decision engine that routes execution instructions to external, off-site waste-recovery receivers (such as bio-fertilizer units, BSFL facilities, or municipal composting hubs via API).
+* **Hardware-Free Water Telemetry:** Estimates Dissolved Oxygen ($\text{mg/L}$) at $10\text{m}$ spatial resolution directly from multispectral bands.
+* **Hybrid CNN-LSTM Model:** Models spatial spectral signatures and temporal flow decay to predict downstream anoxic events up to 72 hours in advance.
+* **Automated Sentinel Ingestion:** Built-in ETL pipeline using `Rasterio` and `GeoPandas` to fetch, crop, cloud-mask, and process Copernicus L2A data.
+* **Physics-Informed ML:** Integrates modified Streeter-Phelps oxygen sag equations into model loss functions to maintain physical consistency.
+* **REST API & GeoJSON Output:** Powered by `FastAPI` to deliver real-time plume tracking data directly to municipal dashboards.
 
-```text
- [1. INGESTION LAYER]       [2. AI ENGINE LAYER]       [3. DECISION LAYER]        [4. ACTION & OUTPUT LAYER]
- ┌──────────────────┐       ┌──────────────────┐       ┌──────────────────┐       ┌────────────────────────┐
- │ Satellite Radar  │ ──►   │ Dynamic C_max    │ ──►   │ Automated Alert  │ ──►   │ Municipal SMS/APIs     │
- │ & Optical Data   │       │ Computation      │       │ Threshold Check  │       │ (Governance & Audits)  │
- ├──────────────────┤       ├──────────────────┤       ├──────────────────┤       ├────────────────────────┤
- │ Submerged Edge   │ ──►   │ Hydro-Spatial    │ ──►   │ Waste Load       │ ──►   │ Off-Site Redirection   │
- │ Sensors (DO/Temp)│       │ Plume Prediction │       │ Diversion Trigger│       │ (REST APIs / Webhooks) │
- └──────────────────┘       └──────────────────┘       └──────────────────┘       └────────────────────────┘
+---
 
-📁 Repository Structure
-ecotrace-stream-ai/
-├── docs/                   # Full Project Dossier, Standards Alignment, & Whitepapers
-├── ingestion/              # Data collection modules
-│   ├── satellite/          # Copernicus Sentinel-1 SAR & Sentinel-2 Optical pipelines
-│   └── edge_sensors/       # Submerged IoT telemetry ingestion (DO, Temp, Flow Rate)
-├── models/                 # AI & Machine Learning Core
-│   ├── hydrology/          # Dynamic C_max & 72-hr plume dispersion GRU/RNN models
-│   └── methane/            # BOD5-to-Anoxic methanogenesis conversion & CO2e tracking
-├── api/                    # REST API & Webhook dispatchers for municipal alerts
-├── config/                 # Environment, threshold, and geographic bounding settings
-└── tests/                  # Integration & unit test suites
+## 🛠️ Architecture & Tech Stack
 
-🚀 Getting Started
-Prerequisites
-Python 3.10+
+* **Language:** Python 3.10+
+* **Core ML:** PyTorch 2.x, TensorFlow 2.x, Scikit-Learn
+* **Geospatial Stack:** Rasterio, GeoPandas, Shapely, GDAL, PyPROJ
+* **Backend API:** FastAPI, Uvicorn, Pydantic
+* **Database & Cache:** PostgreSQL / PostGIS, Redis
 
-GeoPandas / Rasterio
+---
 
-TensorFlow or PyTorch
+## 📋 Prerequisites & Installation
 
-Copernicus Open Access Hub API Credentials
+### Option 1: Native Installation (Linux/macOS)
 
-Installation
-# Clone the repository
-git clone [https://github.com/WillsMkt-Global/ecotrace-stream-ai.git](https://github.com/WillsMkt-Global/ecotrace-stream-ai.git)
+Ensure GDAL binary dependencies are installed on your system before proceeding:
 
-# Navigate into the project directory
+```bash
+# Ubuntu/Debian system dependencies
+sudo apt-get update && sudo apt-get install -y \
+    gdal-bin \
+    libgdal-dev \
+    python3-gdal \
+    build-essential
+
+# Clone Repository
+git clone [https://github.com/your-username/ecotrace-stream-ai.git](https://github.com/your-username/ecotrace-stream-ai.git)
 cd ecotrace-stream-ai
 
-# Install dependencies
+# Create Virtual Environment & Install
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
-
-📜 Compliance & Licensing
-License: Distributed under the MIT License.
-
-Digital Public Goods Standard: Aligned with open-source indicator requirements for LDC deployment.
-
-Maintainer: WillsMkt Global / EcoTrace-Stream AI Organization (Lead Domain Architect: William Ateazoh Akemfor).
